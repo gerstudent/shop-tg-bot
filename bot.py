@@ -1,6 +1,6 @@
 import os
 from aiogram import Bot, Dispatcher, executor, types
-from aiogram.types import ReplyKeyboardMarkup
+from aiogram.types import ReplyKeyboardMarkup, InlineKeyboardMarkup, InlineKeyboardButton
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -19,6 +19,12 @@ admin_panel = ReplyKeyboardMarkup(resize_keyboard=True)
 admin_panel_buttons = ['Добавить товар', 'Удалить товар', 'Рассылка']
 admin_panel.add(*admin_panel_buttons)
 
+catalog_kb = InlineKeyboardMarkup()
+catalog_kb.add(InlineKeyboardButton(text='Товар 1', url='https://www.sportmaster.ru/catalog/muzhskaya_obuv/krossovki/'),
+               InlineKeyboardButton(text='Товар 2', url='https://www.sportmaster.ru/catalog/muzhskaya_obuv/krossovki/'),
+               InlineKeyboardButton(text='Товар 3', url='https://www.sportmaster.ru/catalog/muzhskaya_obuv/krossovki/')
+               )
+
 
 @dp.message_handler(commands=['start'])
 async def cmd_start(message: types.Message):
@@ -36,7 +42,7 @@ async def cmd_id(message: types.Message):
 
 @dp.message_handler(text='Каталог')
 async def contacts(message: types.Message):
-    await message.answer('Каталог нашего магазина')
+    await message.answer('Каталог нашего магазина', reply_markup=catalog_kb)
 
 
 @dp.message_handler(text='Корзина')
