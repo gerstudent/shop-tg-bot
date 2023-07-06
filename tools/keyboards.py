@@ -13,7 +13,7 @@ admin_panel_buttons = ['Добавить товар', 'Удалить товар
 admin_panel.add(*admin_panel_buttons)
 
 catalog_kb = InlineKeyboardMarkup()
-catalog_kb.add(InlineKeyboardButton(text='Товар 1', url='https://www.sportmaster.ru/catalog/muzhskaya_obuv/krossovki/'),
-               InlineKeyboardButton(text='Товар 2', url='https://www.sportmaster.ru/catalog/muzhskaya_obuv/krossovki/'),
-               InlineKeyboardButton(text='Товар 3', url='https://www.sportmaster.ru/catalog/muzhskaya_obuv/krossovki/')
+catalog_kb.add(InlineKeyboardButton(text='Товар 1', callback_data='item 1'),
+               InlineKeyboardButton(text='Товар 2', callback_data='item 2'),
+               InlineKeyboardButton(text='Товар 3', callback_data='item 3')
                )

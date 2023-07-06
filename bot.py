@@ -15,6 +15,7 @@ async def on_startup(_):
 
 @dp.message_handler(commands=['start'])
 async def cmd_start(message: types.Message):
+    await db.cmd_start_db(message.from_user.id)
     await message.answer_sticker("CAACAgIAAxkBAAMGZKa_4SN7y425QV79kUw7GfMtYr0AAkIQAAIzxSlJkA7UEacqSoIvBA")
     await message.answer(f'{message.from_user.first_name}, добро пожаловать в магазин!', reply_markup=kbs.keyboard)
 
@@ -61,10 +62,20 @@ async def forward_file(message: types.Message):
     await bot.forward_message(os.getenv("GROUP_ID"), message.from_user.id, message.message_id)
 
 
+@dp.callback_query_handler()
+async def callback_query_keyboard(callback_query: types.CallbackQuery):
+    if callback_query.data == 'item 1':
+        await bot.send_message(chat_id=callback_query.from_user.id, text='Ваш выбор: item 1')
+    elif callback_query.data == 'item 2':
+        await bot.send_message(chat_id=callback_query.from_user.id, text='Ваш выбор: item 2')
+    elif callback_query.data == 'item 3':
+        await bot.send_message(chat_id=callback_query.from_user.id, text='Ваш выбор: item 3')
+
+
 @dp.message_handler()
 async def answer(message: types.Message):
     await message.reply('Такой команды не существует')
 
 
 if __name__ == '__main__':
-    executor.start_polling(dp, on_startup=on_startup)
+    executor.start_polling(dp, on_startup=on_startup, skip_updates=True)
