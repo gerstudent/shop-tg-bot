@@ -17,3 +17,6 @@ catalog_kb.add(InlineKeyboardButton(text='Товар 1', callback_data='item 1')
                InlineKeyboardButton(text='Товар 2', callback_data='item 2'),
                InlineKeyboardButton(text='Товар 3', callback_data='item 3')
                )
+
+cancel = ReplyKeyboardMarkup(resize_keyboard=True)
+cancel.add('Отменить')
