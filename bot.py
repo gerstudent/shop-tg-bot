@@ -27,6 +27,16 @@ class Product(StatesGroup):
 
 @dp.message_handler(commands=['start'])
 async def cmd_start(message: types.Message):
+    """Greet the user and display the admin keyboard if it is an admin
+
+    Args:
+        message: (types.Message) message from the user
+
+    Returns:
+        - Answer to keyword "/start" with text and sticker
+        - Check the user id and if it is an admin id, shows the admin keyboard.
+
+    """
     await db.cmd_start_db(message.from_user.id)
     await message.answer_sticker(os.getenv("STICKER"))
     await message.answer(
@@ -62,6 +72,16 @@ async def contacts(message: types.Message):
 
 @dp.message_handler(text='Админ-панель')
 async def admin_panel_handler(message: types.Message):
+    """Show admin panel
+
+    Args:
+        message: (types.Message) message from the user
+
+    Returns:
+        - Admin panel if user id is equal to admin id,
+        else reply 'Такой команды не существует'
+
+    """
     if message.from_user.id == int(os.getenv("ADMIN_ID")):
         await message.answer(
             'Вы находитесь в админ-панели', reply_markup=kbs.admin_panel
@@ -71,7 +91,17 @@ async def admin_panel_handler(message: types.Message):
 
 
 @dp.message_handler(text='Добавить товар')
-async def add_product(message: types.Message):
+async def add_item(message: types.Message):
+    """Add item to a cart
+
+    Args:
+        message: (types.Message) message from the user
+
+    Returns:
+        - Catalog keyboard if product exists in database,
+        else reply 'Такой команды не существует'
+
+    """
     if message.from_user.id == int(os.getenv("ADMIN_ID")):
         await Product.type.set()
         await message.answer('Выберите тип товара', reply_markup=kbs.catalog_kb)
@@ -80,7 +110,7 @@ async def add_product(message: types.Message):
 
 
 @dp.callback_query_handler(state=Product.type)
-async def add_product_type(call: types.CallbackQuery, state: FSMContext):
+async def add_item_type(call: types.CallbackQuery, state: FSMContext):
     async with state.proxy() as data:
         data['type'] = call.data
     await call.message.answer('Введите название товара', reply_markup=kbs.cancel)
