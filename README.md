@@ -3,7 +3,8 @@
 Repository contains the source code of the telegram bot for the store. The project was created in the educational
 goals.
 
-- Available functions: choice items from catalog, view contact information, add item to cart, admin panel with the ability to add, remove products and make a mailing list.
+- Available functions: choice items from catalog, view contact information, add item to cart, admin panel with the
+  ability to add, remove products and make a mailing list.
 
 # Prerequisites
 
@@ -18,11 +19,12 @@ Be sure you have the following installed on your development machine:
 
 To run this project in your development machine, follow these steps:
 
-1. (optional) Create and activate a [virtualenv](https://virtualenv.pypa.io/) or [venv](https://docs.python.org/3/library/venv.html)
+1. (optional) Create and activate a [virtualenv](https://virtualenv.pypa.io/)
+   or [venv](https://docs.python.org/3/library/venv.html)
 
 2. Clone this repo
 
-`git clone https://github.com/gerstudent/shop_tg_bot`
+`git clone https://github.com/gerstudent/shop-tg-bot`
 
 3. Install dependencies:
 
